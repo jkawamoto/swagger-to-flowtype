@@ -105,11 +105,15 @@ const propertiesList = (definition: Object) => {
   }
 
   if (definition.$ref) {
-    return { $ref: definitionTypeName(definition.$ref) };
+    return {$ref: definitionTypeName(definition.$ref)};
   }
 
   if ("type" in definition && definition.type !== "object") {
     return typeFor(definition);
+  }
+
+  if (definition.additionalProperties) {
+    return "{[string]: " + propertiesTemplate(propertiesList(definition.additionalProperties)) + "}"
   }
 
   if (
@@ -238,7 +242,7 @@ export const getContentFromUrl = (url: string): Promise<Object> =>
     method: "get",
     url
   }).then(response => {
-    const { data } = response;
+    const {data} = response;
     return isObject(data) ? data : yaml.safeLoad(data);
   });
 
