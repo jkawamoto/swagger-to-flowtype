@@ -10,7 +10,7 @@
     "test:watch": "jest --watch",
     "prebuild": "npm run clean && npm run init",
     "build": "babel ./src -d ./dist",
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "flow": "flow",
     "prettier": "prettier --write {src,__{tests,mocks}__}/**/*.js"
   },
